@@ -26,6 +26,6 @@ jQuery(document).ready(function($){
 On an Image (Recommended to declare the smallest as your src)    
 ```<img src="1-small.jpg" data-rimg-small="1-small.jpg" data-rimg-medium="1-med.jpg" data-rimg-large="1-lrg.jpg" data-rimg-full="1-full.jpg" alt="" />```
 
-Background Image (Defaults to large on Full Size)  
-```<div src="1.jpg" data-rimg-small="1-small.jpg" data-rimg-medium="1-med.jpg" data-rimg-large="1-lrg.jpg">  
+Background Image (If no full size is declared it will default to large)    
+```<div data-rimg-small="1-small.jpg" data-rimg-medium="1-med.jpg" data-rimg-large="1-lrg.jpg">  
 </div>```
