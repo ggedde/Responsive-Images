@@ -2,6 +2,8 @@
 Resizes Images based on Browser width
 
 ##How to Use##
+Include the plugin from source.js into your project.  
+Then add the following to your project  
 ```
 jQuery(document).ready(function($){
 	$(this).responsiveImages();
