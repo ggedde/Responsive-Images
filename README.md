@@ -1,7 +1,7 @@
 # Responsive-Images
 Resizes Images based on Browser width
 
-== How to Use ==
+##How to Use##
 ```
 jQuery(document).ready(function($){
 	$(this).responsiveImages();
