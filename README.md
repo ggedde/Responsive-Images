@@ -22,8 +22,8 @@ jQuery(document).ready(function($){
 
 
 On an Image  
-<img src="1.jpg" data-rimg-small="1-small.jpg" data-rimg-medium="1-med.jpg" data-rimg-large="1.lrg.jpg" alt="" />
+```<img src="1.jpg" data-rimg-small="1-small.jpg" data-rimg-medium="1-med.jpg" data-rimg-large="1.lrg.jpg" alt="" />```
 
 Background Image  
-<div src="1.jpg" data-rimg-small="1-small.jpg" data-rimg-medium="1-med.jpg" data-rimg-large="1.lrg.jpg">  
-</div>
+```<div src="1.jpg" data-rimg-small="1-small.jpg" data-rimg-medium="1-med.jpg" data-rimg-large="1.lrg.jpg">  
+</div>```
