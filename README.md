@@ -2,7 +2,7 @@
 Resizes Images based on Browser width
 
 ##How to Use##
-Include the plugin from source.js into your project.  
+Include the plugin from source.min.js into your project.  
 Then add the following to your project  
 ```
 jQuery(document).ready(function($){
