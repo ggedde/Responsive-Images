@@ -34,11 +34,14 @@ data-rimg-small="1-small.jpg"
 data-rimg-medium="1-med.jpg"   
 data-rimg-large="1-lrg.jpg"   
 data-rimg-full="1-full.jpg"   
-alt="" />```
+alt="" />
+```
 
-Background Image (If no full size is declared it will default to large)    
-```<div   
+Background Image (If no full size is declared it will default to the closest size)    
+```
+<div   
 data-rimg-small="1-small.jpg"   
 data-rimg-medium="1-med.jpg"   
 data-rimg-large="1-lrg.jpg">   
-</div>```
+</div>
+```
