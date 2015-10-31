@@ -12,7 +12,7 @@ jQuery(document).ready(function($){
 });
 ```
 
-###OR###
+With Options
 
 ```
 jQuery(document).ready(function($){
