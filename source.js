@@ -1,102 +1,89 @@
-(function ( $ ) {
+/**
+ * Responsive Images
+ * Version: 1.0.0
+ * Author: Gravitate
+ * License: http://www.opensource.org/licenses/mit-license.php
+ * Requires: jQuery
+ */
+(function ($) {
 
-    $.fn.responsiveImages = function( options ) {
+    $.fn.responsiveImages = function( options )
+    {
         // This is the easiest way to have default options.
         var settings = $.extend({
             // These are the defaults.
             small: 640,
             medium: 1024,
-            large: 1440
+            large: 1440,
+            throttle: 100,
         }, options );
 
+        var resizeTimer;
 
         function runResponsiveImages()
         {
         	var w = $(window).width();
+        	var i, sizes = [{size: settings.small, name: 'small'}, {size: settings.medium, name: 'medium'}, {size: settings.large, name: 'large'}, {size: 99999, name: 'full'}];
 
-	        $('[data-rimg-small], [data-rimg-medium], [data-rimg-large]').each(function(index){
+	        $('[data-rimg-small], [data-rimg-medium], [data-rimg-large]').each(function(index)
+	        {
+	        	var elem = $(this);
 
-	        	if($(this).prop("tagName") === 'IMG' && w > 0)
+        		for(i in sizes)
 	        	{
-	        		if(w < settings.small)
+	        		/* Check the width of the browser and see if it matches a given size */
+	        		if(w > 0 && w < sizes[i].size)
 	        		{
-	        			if($(this).attr('src') != $(this).attr('data-rimg-small'))
+	        			/* Loop through Size and any smaller sizes in case the large size does not exist */
+	        			for (var n = i; n >= 0; n--)
 	        			{
-	        				$(this).attr('src', $(this).attr('data-rimg-small'));
+	        				/* Check if Element has data setting for a given size */
+	        				if(elem.attr('data-rimg-'+sizes[n].name))
+		        			{
+		        				/* If IMG a tag */
+		        				if(elem.prop("tagName") === 'IMG')
+		        				{
+		        					if(elem.attr('src') != elem.attr('data-rimg-'+sizes[n].name))
+			        				{
+			        					elem.attr('src', elem.attr('data-rimg-'+sizes[n].name));
+			        				}
+		        				}
+		        				/* If NOT IMG Tag */
+		        				else
+		        				{
+			        				if(elem.css('background-image') != elem.attr('data-rimg-'+sizes[n].name))
+				        			{
+				        				elem.css('background-image', "url('"+elem.attr('data-rimg-'+sizes[n].name)+"')");
+				        			}
+			        			}
+		        				break;
+		        			}
 	        			}
-	        		}
-	        		else if(w < settings.medium)
-	        		{
-	        			if($(this).attr('src') != $(this).attr('data-rimg-medium'))
-	        			{
-	        				$(this).attr('src', $(this).attr('data-rimg-medium'));
-	        			}
-	        		}
-	        		else if(w < settings.large)
-	        		{
-	        			if($(this).attr('src') != $(this).attr('data-rimg-large'))
-	        			{
-	        				$(this).attr('src', $(this).attr('data-rimg-large'));
-	        			}
-	        		}
-	        		else if(w >= settings.large)
-	        		{
-	        			if($(this).attr('data-rimg-full') && $(this).attr('src') != $(this).attr('data-rimg-full'))
-	        			{
-	        				$(this).attr('src', $(this).attr('data-rimg-full'));
-	        			}
-	        			else if($(this).attr('data-rimg-large') && $(this).attr('src') != $(this).attr('data-rimg-large'))
-	        			{
-	        				$(this).attr('src', $(this).attr('data-rimg-large'));
-	        			}
-	        		}
-	        	}
-	        	else if(w > 0)
-	        	{
-	        		if(w < settings.small)
-	        		{
-	        			if($(this).css('background-image') != $(this).attr('data-rimg-small'))
-	        			{
-	        				$(this).css('background-image', "url('"+$(this).attr('data-rimg-small')+"')");
-	        			}
-	        		}
-	        		else if(w < settings.medium)
-	        		{
-	        			if($(this).css('background-image') != $(this).attr('data-rimg-medium'))
-	        			{
-	        				$(this).css('background-image', "url('"+$(this).attr('data-rimg-medium')+"')");
-	        			}
-	        		}
-	        		else if(w < settings.large)
-	        		{
-	        			if($(this).css('background-image') != $(this).attr('data-rimg-large'))
-	        			{
-	        				$(this).css('background-image', "url('"+$(this).attr('data-rimg-large')+"')");
-	        			}
-	        		}
-	        		else if(w >= settings.large)
-	        		{
-	        			if($(this).attr('data-rimg-full') && $(this).css('background-image') != $(this).attr('data-rimg-full'))
-	        			{
-	        				$(this).css('background-image', "url('"+$(this).attr('data-rimg-full')+"')");
-	        			}
-	        			else if($(this).attr('data-rimg-large') && $(this).css('background-image') != $(this).attr('data-rimg-large'))
-	        			{
-	        				$(this).css('background-image', "url('"+$(this).attr('data-rimg-large')+"')");
-	        			}
+	        			break;
 	        		}
 	        	}
 	        });
 	    };
 
         /* On Browser Resize */
-        $(window).on('resize', function(){
-        	runResponsiveImages();
+        $(window).on('resize', function()
+        {
+        	if(settings.throttle)
+        	{
+        		/* Trottle the Resize Event so it doesn't lag the browser */
+		    	clearTimeout(resizeTimer);
+		    	resizeTimer = setTimeout(runResponsiveImages, settings.throttle);
+		    	return;
+		    }
+
+		    /* Run if Throttle is set to 0 */
+		    runResponsiveImages();
+
         });
-        
+
         /* Initialize */
         runResponsiveImages();
 
     };
-
+    
 }( jQuery ));
