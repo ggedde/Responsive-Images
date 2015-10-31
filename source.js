@@ -16,6 +16,7 @@
             medium: 1024,
             large: 1440,
             throttle: 100,
+            onload: true
         }, options );
 
         var resizeTimer;
@@ -81,9 +82,12 @@
 
         });
 
-        /* Initialize */
-        runResponsiveImages();
+        if(settings.onload)
+        {
+	        /* Initialize */
+	        runResponsiveImages();
+	    }
 
     };
-    
+
 }( jQuery ));
