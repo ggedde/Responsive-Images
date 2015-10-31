@@ -18,14 +18,27 @@ jQuery(document).ready(function($){
 		small: 640,
 		medium: 1024,
 		large: 1440,
+		throttle, 100
 	});
 });
 ```
 
+##Throttling Browser Resize##  
+By default the resize throttling is set to 100 milliseconds. This reduces the lag when resizing the browser.
+However, if you want the images to load much faster on resize then you can set this to 0 to turn off throttling or adjust it to a smaller number.  
 
 On an Image (Recommended to declare the smallest as your src)    
-```<img src="1-small.jpg" data-rimg-small="1-small.jpg" data-rimg-medium="1-med.jpg" data-rimg-large="1-lrg.jpg" data-rimg-full="1-full.jpg" alt="" />```
+```<img   
+src="1-small.jpg"   
+data-rimg-small="1-small.jpg"   
+data-rimg-medium="1-med.jpg"   
+data-rimg-large="1-lrg.jpg"   
+data-rimg-full="1-full.jpg"   
+alt="" />```
 
 Background Image (If no full size is declared it will default to large)    
-```<div data-rimg-small="1-small.jpg" data-rimg-medium="1-med.jpg" data-rimg-large="1-lrg.jpg">  
+```<div   
+data-rimg-small="1-small.jpg"   
+data-rimg-medium="1-med.jpg"   
+data-rimg-large="1-lrg.jpg">   
 </div>```
