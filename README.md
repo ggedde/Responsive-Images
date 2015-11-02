@@ -20,7 +20,8 @@ jQuery(document).ready(function($){
 		small: 640,
 		medium: 1024,
 		large: 1440,
-		throttle, 100
+		throttle: 100,
+		onload: true
 	});
 });
 ```
