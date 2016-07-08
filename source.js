@@ -1,7 +1,7 @@
 /**
  * Responsive Images
  * Version: 1.0.0
- * Author: Gravitate
+ * Author: Geoff Gedde
  * License: http://www.opensource.org/licenses/mit-license.php
  * Requires: jQuery
  */
