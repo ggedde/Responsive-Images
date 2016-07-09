@@ -17,11 +17,35 @@ With Options
 ```
 jQuery(document).ready(function($){
 	$(this).responsiveImages({
-		small: 640,
-		medium: 1024,
-		large: 1440,
 		throttle: 100,
-		onload: true
+            	downscale: false,
+            	onload: true,
+            	sizes: [
+	    		{
+	    			name: 'small',
+	    			size: 320
+	    		},
+	    		{
+	    			name: 'medium',
+	    			size: 500
+	    		},
+	    		{
+	    			name: 'medium_large',
+	    			size: 768
+	    		},
+	    		{
+	    			name: 'large',
+	    			size: 1024
+	    		},
+	    		{
+	    			name: 'xlarge',
+	    			size: 1440
+	    		},
+	    		{
+	    			name: 'full',
+	    			size: 99999
+	    		}
+	    	]
 	});
 });
 ```
@@ -48,3 +72,6 @@ data-rimg-large="1-lrg.jpg">
 ##Throttling Browser Resize##
 By default the resize throttling is set to 100 milliseconds. This reduces the lag when resizing the browser.
 However, if you want the images to load much faster on resize then you can set this to 0 to turn off throttling or adjust it to a smaller number.  
+
+##Downscaling##
+This will use the lower resolution image size instead of the higher resolution image size. Similar to floor() instead of ceil()
