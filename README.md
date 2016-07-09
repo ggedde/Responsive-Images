@@ -12,7 +12,7 @@ jQuery(document).ready(function($){
 });
 ```
 
-With Options
+With Options  (below are the Defaults)
 
 ```
 jQuery(document).ready(function($){
