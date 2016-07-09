@@ -104,7 +104,7 @@
 			        				/* If IMG a tag */
 			        				if(elem.prop("tagName") === 'IMG')
 			        				{
-			        					if((!img_src || img_src.indexOf('data:') > -1) && settings.lazyload && viewTop > 100)
+			        					if((!img_src || img_src.indexOf('data:') > -1) && settings.lazyload)
 			        					{
 			        						fade = true;
 			        					}
