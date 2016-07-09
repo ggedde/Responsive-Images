@@ -1,6 +1,6 @@
 /**
  * Responsive Images
- * Version: 1.0.0
+ * Version: 2.0.0
  * Author: Geoff Gedde
  * License: http://www.opensource.org/licenses/mit-license.php
  * Requires: jQuery
@@ -12,49 +12,77 @@
         // This is the easiest way to have default options.
         var settings = $.extend({
             // These are the defaults.
-            small: 640,
-            medium: 1024,
-            large: 1440,
             throttle: 100,
-            onload: true
+            downscale: false,
+            onload: true,
+            sizes: [
+	    		{
+	    			name: 'small',
+	    			size: 320
+	    		},
+	    		{
+	    			name: 'medium',
+	    			size: 500
+	    		},
+	    		{
+	    			name: 'medium_large',
+	    			size: 768
+	    		},
+	    		{
+	    			name: 'large',
+	    			size: 1024
+	    		},
+	    		{
+	    			name: 'xlarge',
+	    			size: 1440
+	    		},
+	    		{
+	    			name: 'full',
+	    			size: 99999
+	    		}
+	    	]
         }, options );
 
         var resizeTimer;
 
         function runResponsiveImages()
         {
-        	var w = $(window).width();
-        	var i, sizes = [{size: settings.small, name: 'small'}, {size: settings.medium, name: 'medium'}, {size: settings.large, name: 'large'}, {size: 99999, name: 'full'}];
+        	var windowWidth = $(window).width();
+        	var i;
 
 	        $('[data-rimg-small], [data-rimg-medium], [data-rimg-large]').each(function(index)
 	        {
 	        	var elem = $(this);
 
-        		for(i in sizes)
+	        	var elemWidth = elem.outerWidth();
+
+	        	var w = (elemWidth > 0 ? elemWidth : windowWidth);
+
+        		for(i in settings.sizes)
 	        	{
 	        		/* Check the width of the browser and see if it matches a given size */
-	        		if(w > 0 && w < sizes[i].size)
+	        		if(w > 0 && w < settings.sizes[i].size)
 	        		{
 	        			/* Loop through Size and any smaller sizes in case the large size does not exist */
-	        			for (var n = i; n >= 0; n--)
+	        			for (var n = (settings.downscale ? (i-1) : i); n >= 0; n--)
 	        			{
 	        				/* Check if Element has data setting for a given size */
-	        				if(elem.attr('data-rimg-'+sizes[n].name))
+	        				if(elem.attr('data-rimg-'+settings.sizes[n].name))
 		        			{
 		        				/* If IMG a tag */
 		        				if(elem.prop("tagName") === 'IMG')
 		        				{
-		        					if(elem.attr('src') != elem.attr('data-rimg-'+sizes[n].name))
+		        					if(elem.attr('src') != elem.attr('data-rimg-'+settings.sizes[n].name))
 			        				{
-			        					elem.attr('src', elem.attr('data-rimg-'+sizes[n].name));
+			        					elem.attr('src', elem.attr('data-rimg-'+settings.sizes[n].name));
 			        				}
 		        				}
 		        				/* If NOT IMG Tag */
 		        				else
 		        				{
-			        				if(elem.css('background-image') != elem.attr('data-rimg-'+sizes[n].name))
+			        				if(elem.css('background-image') != elem.attr('data-rimg-'+settings.sizes[n].name))
 				        			{
-				        				elem.css('background-image', "url('"+elem.attr('data-rimg-'+sizes[n].name)+"')");
+				        				elem.css('background-image', "url('"+elem.attr('data-rimg-'+settings.sizes[n].name)+"')");
 				        			}
 			        			}
 		        				break;
