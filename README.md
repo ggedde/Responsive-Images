@@ -18,34 +18,34 @@ With Options
 jQuery(document).ready(function($){
 	$(this).responsiveImages({
 		throttle: 100,
-            	downscale: false,
-            	onload: true,
-            	sizes: [
-	    		{
-	    			name: 'small',
-	    			size: 320
-	    		},
-	    		{
-	    			name: 'medium',
-	    			size: 500
-	    		},
-	    		{
-	    			name: 'medium_large',
-	    			size: 768
-	    		},
-	    		{
-	    			name: 'large',
-	    			size: 1024
-	    		},
-	    		{
-	    			name: 'xlarge',
-	    			size: 1440
-	    		},
-	    		{
-	    			name: 'full',
-	    			size: 99999
-	    		}
-	    	]
+		downscale: false,
+		onload: true,
+		sizes: [
+			{
+			    name: 'small',
+			    size: 320
+			},
+			{
+			    name: 'medium',
+			    size: 500
+			},
+			{
+			    name: 'medium_large',
+			    size: 768
+			},
+			{
+			    name: 'large',
+			    size: 1024
+			},
+			{
+			    name: 'xlarge',
+			    size: 1440
+			},
+			{
+			    name: 'full',
+			    size: 99999
+			}
+		]
 	});
 });
 ```
