@@ -20,6 +20,7 @@ jQuery(document).ready(function($){
 		throttle: 100,
 		downscale: false,
 		onload: true,
+		lazyload: true,
 		sizes: [
 			{
 			    name: 'small',
@@ -50,9 +51,9 @@ jQuery(document).ready(function($){
 });
 ```
 
-On an Image (Recommended to declare the smallest as your src)    
+On an Image (Recommended to declare the smallest as your src or no src at all to reduce network bandwidth)    
 ```  
-<img src="1-small.jpg"   
+<img 
 data-rimg-small="1-small.jpg"   
 data-rimg-medium="1-med.jpg"   
 data-rimg-large="1-lrg.jpg"   
@@ -75,3 +76,6 @@ However, if you want the images to load much faster on resize then you can set t
 
 ##Downscaling##
 This will use the lower resolution image size instead of the higher resolution image size. Similar to floor() instead of ceil()
+
+##LazyLoad##
+This will prevent the images from loading unless they are close to the viewport.  Then they will be faded in.  This helps reduce network bandwidth when images are not needed to be displayed.
