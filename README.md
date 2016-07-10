@@ -57,14 +57,15 @@ jQuery(document).ready(function($){
 On an Image  
 Recommended to declare the smallest size as your src or use a data-uri filler to make sure the image fills out correctly and works properly with Lazyload.  
 ```  
-<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
+<img 
+src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
 data-rimg-small="1-small.jpg"   
 data-rimg-medium="1-med.jpg"   
 data-rimg-large="1-lrg.jpg"   
 data-rimg-full="1-full.jpg"   
 alt="" />
 ```
-(data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== is an extremely small image)
+*(Tha data:image seen above is an extremely small image that may be needed as a placeholder to render the page layout correctly.)*
 
 Background Image (If no full size is declared it will default to the closest size)    
 ```
