@@ -1,6 +1,7 @@
 # Responsive-Images  with LazyLoad Option
 Version 4.1.0  
-Resizes Images based on Browser width
+Resizes Images based on Image container width or Browswer width.
+
 
 ##How to Use##
 Include the plugin from source.min.js into your project.  
@@ -18,6 +19,7 @@ With Options  (Defaults)
 ```
 jQuery(document).ready(function($){
 	$(this).responsiveImages({
+		watch: 'tag',
 		throttle: 100,
 		downscale: false,
 		downsize: false,
@@ -77,10 +79,14 @@ data-rimg-large="1-lrg.jpg">
 ```
 
 CSS Classes will be added to your elements  
-* "rimg" - To all tags with the data-rimg-* attribute
-* "rimg-lazy" - To all tags that are lazy loaded (below the fold) and when lazyload is enabled.
-* "rimg-loaded" - Added after the image src is fully loaded.
+* **rimg** - To all tags with the data-rimg-* attribute
+* **rimg-lazy** - To all tags that are lazy loaded (below the fold) and when lazyload is enabled.
+* **rimg-loaded** - Added after the image src is fully loaded.
 
+##Watch##
+What to watch when deciding to update.  
+* **tag** - (Default) This will watch the <img> or <div> tags width to determine what image should be shown. This is ideal when using grid layouts like having images in split columns, etc. It is best to set your <img> and other tags to width: 100%; for this to work properly.  Otherwise use 'window'.
+* **window** - This will watch the window or device width.  While this is good for mobile, etc it may load larger image sizes when not needed if the image is made smaller by using columns.
 
 ##Throttling Browser Resize##
 By default the resize throttling is set to 100 milliseconds. This reduces the lag when resizing the browser.
