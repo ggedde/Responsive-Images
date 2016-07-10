@@ -103,7 +103,7 @@ This will use the lower resolution image size instead of the higher resolution i
 If set to true then when resizing the window to smaller it will load the smaller images.  This can increase bandwidth, but may help with images looking crammed in smaller windows.
 
 ##LazyLoad##
-This will prevent the images from loading unless they are close to the viewport.  Then they will be faded in.  This helps reduce network bandwidth when images are not needed to be displayed.
+This will prevent the images from loading unless they are close to the viewport.  This helps reduce network bandwidth when images are not needed to be displayed.  When using this option make sure to not include the ```<img>``` src or the ```<div>``` background image.  Otherwise the images will still get loaded on page load.  If the image is below the viewport it will be given the "rimg-lazy" class and on load it will be given the "rimg-loaded" class.
 
 ##LazyLoad Threshold##
 This is the number of pixels from the viewport that images will start to load.  You can increase this to reduce flickering images when scrolling, but the higher the number the more images that will be loaded by default.
