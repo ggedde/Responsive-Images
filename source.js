@@ -1,6 +1,6 @@
 /**
  * Responsive Images
- * Version: 4.2.0
+ * Version: 4.2.1
  * Author: Geoff Gedde
  * License: http://www.opensource.org/licenses/mit-license.php
  * Requires: jQuery
@@ -129,7 +129,7 @@
 	        	var bg_src = elem.css('background-image').split('url("').join('').split('")').join('');
 	        	var new_src;
 
-	        	if(settings.lazyload && !done_scrolling)
+	        	if(settings.lazyload && !done_scrolling && !elem.hasClass('rimg-loaded'))
 	        	{
 				    do_load = rImgIsInView(elem);
 	        	}
