@@ -13,7 +13,7 @@ jQuery(document).ready(function($){
 });
 ```
 
-With Options  (below are the Defaults)
+With Options  (Defaults)
 
 ```
 jQuery(document).ready(function($){
@@ -84,7 +84,7 @@ However, if you want the images to load much faster on resize then you can set t
 You may want to set this to false.  When declaring your own srcs and don't want the script to run until the user resizes the browser or scrolls if Lazyload is enabled.
 
 ##Downscaling##
-This will use the lower resolution image size instead of the higher resolution image size. Similar to floor() instead of ceil()
+This will use the lower resolution image size instead of the higher resolution image size. Similar to floor() instead of ceil().  This may reduce bandwidth, but images may tend to be a bit more blury.
 
 ##Downsize##
 If set to true then when resizing the window to smaller it will load the smaller images.  This can increase bandwidth, but may help with images looking crammed in smaller windows.
