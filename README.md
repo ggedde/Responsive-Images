@@ -1,4 +1,4 @@
-# Responsive-Images  
+# Responsive-Images  with LazyLoad Option
 Version 4.1.0  
 Resizes Images based on Browser width
 
