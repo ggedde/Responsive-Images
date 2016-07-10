@@ -1,6 +1,6 @@
 /**
  * Responsive Images
- * Version: 3.0.0
+ * Version: 4.0.0
  * Author: Geoff Gedde
  * License: http://www.opensource.org/licenses/mit-license.php
  * Requires: jQuery
@@ -14,6 +14,7 @@
             // These are the defaults.
             throttle: 100,
             downscale: false,
+            downsize: false,
             onload: true,
             lazyload: true,
             sizes: [
@@ -46,18 +47,72 @@
 
         var resizeTimer,
             scrollTimer,
-            viewPos = 0,
+            rimgs,
 	        viewTop = 0,
 	        viewHeight = 0,
-            done_loading = false,
+            done_scrolling = false,
             lastScrollTop = -1;
 
-        function runResponsiveImages()
+        function rImgGetView()
+        {
+        	viewTop = $(window).scrollTop();
+	        viewHeight = $(window).height();
+        }
+
+        function rImgIsInView(elem)
+        {
+        	var viewPos = viewTop + viewHeight;
+	        var elemPos = parseFloat(elem.offset().top);
+
+        	return (elemPos-100) <= viewPos;
+        }
+
+        function rImgInit()
+        {
+        	rimgs = $('[data-rimg-small], [data-rimg-medium], [data-rimg-large]').addClass('rimg');
+
+        	if(settings.lazyload)
+        	{
+        		rImgGetView();
+
+        		rimgs.each(function(index)
+        		{
+        			var elem = $(this);
+
+				    if(!rImgIsInView(elem))
+	        		{
+	        			var img_src = elem.attr('src');
+	        			var bg_src = elem.css('background-image').split('url("').join('').split('")').join('');
+
+	        			if((!img_src || img_src.indexOf('data:') > -1) && (!bg_src || bg_src == 'none' || bg_src.indexOf('data:') > -1))
+		        		{
+		        			elem.addClass('rimg-lazy');
+		        		}
+	        		}
+
+        		});
+        	}
+        };
+
+        function rImgIsBigger(src, elem, current)
+        {
+        	for(var i in settings.sizes)
+		    {
+		    	if(current < i && src === elem.attr('data-rimg-'+settings.sizes[i].name))
+		    	{
+		    		return true;
+		    	}
+		    }
+
+		    return false;
+        }
+
+        function rImgUpdate()
         {
         	var windowWidth = $(window).width();
         	var i;
 
-	        $('[data-rimg-small], [data-rimg-medium], [data-rimg-large]').each(function(index)
+	        rimgs.each(function(index)
 	        {
 	        	var elem = $(this);
 
@@ -67,25 +122,12 @@
 
 	        	var do_load = true;
 
-	        	var fade = false;
-
 	        	var img_src = elem.attr('src');
-	        	var bg_src = elem.css('background-image');
+	        	var bg_src = elem.css('background-image').split('url("').join('').split('")').join('');
 
-	        	if(settings.lazyload && !done_loading)
+	        	if(settings.lazyload && !done_scrolling)
 	        	{
-	        		viewPos = viewTop + viewHeight;
-	        		var elemPos = parseFloat(elem.offset().top);
-
-				    if((elemPos-100) > viewPos)
-	        		{
-	        			do_load = false;
-	        			if((!img_src || img_src.indexOf('data:') > -1) && (!bg_src || bg_src == 'none' || bg_src.indexOf('data:') > -1))
-		        		{
-		        			elem.css({opacity: 0, transition: 'opacity .5s ease-in-out'});
-		        		}
-	        		}
-
+				    do_load = rImgIsInView(elem);
 	        	}
 
 	        	if(do_load)
@@ -104,38 +146,18 @@
 			        				/* If IMG a tag */
 			        				if(elem.prop("tagName") === 'IMG')
 			        				{
-			        					if((!img_src || img_src.indexOf('data:') > -1) && settings.lazyload)
-			        					{
-			        						fade = true;
-			        					}
-
-			        					if(elem.attr('src') != elem.attr('data-rimg-'+settings.sizes[n].name))
+			        					if(img_src != elem.attr('data-rimg-'+settings.sizes[n].name) && (settings.downsize || (!settings.downsize && !rImgIsBigger(img_src, elem, n))))
 				        				{
-				        					elem.attr('src', elem.attr('data-rimg-'+settings.sizes[n].name));
-				        				}
-
-				        				if(fade)
-				        				{
-				        					elem.css('opacity', '1');
+				        					elem.attr('src', elem.attr('data-rimg-'+settings.sizes[n].name)).addClass('rimg-loaded');
 				        				}
 			        				}
 			        				/* If NOT IMG Tag */
 			        				else
 			        				{
-			        					if((!elem.css('background-image') || elem.css('background-image') == 'none' || elem.css('background-image').indexOf('data:') > -1) && settings.lazyload)
-			        					{
-			        						fade = true;
-			        					}
-
-				        				if(elem.css('background-image') != elem.attr('data-rimg-'+settings.sizes[n].name))
+				        				if(bg_src != elem.attr('data-rimg-'+settings.sizes[n].name) && (settings.downsize || (!settings.downsize && !rImgIsBigger(bg_src, elem, n))))
 					        			{
-					        				elem.css('background-image', "url('"+elem.attr('data-rimg-'+settings.sizes[n].name)+"')");
+					        				elem.css('background-image', "url('"+elem.attr('data-rimg-'+settings.sizes[n].name)+"')").addClass('rimg-loaded');
 					        			}
-
-					        			if(fade)
-				        				{
-				        					elem.css('opacity', '1');
-				        				}
 				        			}
 			        				break;
 			        			}
@@ -147,58 +169,57 @@
 	        });
 	    };
 
+	    rImgInit();
+
         /* On Browser Resize */
         $(window).on('resize', function()
         {
         	if(settings.lazyload)
 	    	{
-	    		viewTop = $(window).scrollTop();
-	        	viewHeight = $(window).height();
+	    		rImgGetView();
 	    	}
 
         	if(settings.throttle)
         	{
         		/* Trottle the Resize Event so it doesn't lag the browser */
 		    	clearTimeout(resizeTimer);
-		    	resizeTimer = setTimeout(runResponsiveImages, settings.throttle);
+		    	resizeTimer = setTimeout(rImgUpdate, settings.throttle);
 		    	return;
 		    }
 
 		    /* Run if Throttle is set to 0 */
-		    runResponsiveImages();
+		    rImgUpdate();
 
         });
 
         if(settings.lazyload)
 	    {
-	    	viewTop = $(window).scrollTop();
-	        viewHeight = $(window).height();
+	    	rImgGetView();
 
 	        /* On Browser Resize */
 	        $(window).on('scroll', function()
 	        {
 	        	viewTop = $(window).scrollTop();
 
-
-	        	if(!done_loading && viewTop > lastScrollTop)
+	        	if(!done_scrolling && viewTop > lastScrollTop)
 	        	{
 	        		lastScrollTop = viewTop;
 
 	        		if(viewTop + viewHeight >= $(document).height())
 	        		{
-				       done_loading = true;
+				       done_scrolling = true;
 				    }
 
 		        	if(settings.throttle)
 		        	{
 		        		/* Trottle the Resize Event so it doesn't lag the browser */
 				    	clearTimeout(scrollTimer);
-				    	scrollTimer = setTimeout(runResponsiveImages, 10);
+				    	scrollTimer = setTimeout(rImgUpdate, 10);
 				    	return;
 				    }
 
 				    /* Run if Throttle is set to 0 */
-				    runResponsiveImages();
+				    rImgUpdate();
 				}
 
 	        });
@@ -207,7 +228,7 @@
         if(settings.onload)
         {
 	        /* Initialize */
-	        runResponsiveImages();
+	        rImgUpdate();
 	    }
 
     };
