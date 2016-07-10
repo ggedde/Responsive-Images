@@ -1,5 +1,5 @@
 # Responsive-Images  with LazyLoad Option
-Version 4.1.0  
+Version 4.2.0  
 Resizes Images based on Image container width or Browswer width.
 
 
