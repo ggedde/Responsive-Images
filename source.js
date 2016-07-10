@@ -12,6 +12,7 @@
         // This is the easiest way to have default options.
         var settings = $.extend({
             // These are the defaults.
+            watch: 'tag',
             throttle: 100,
             downscale: false,
             downsize: false,
@@ -49,8 +50,8 @@
         var resizeTimer,
             scrollTimer,
             rimgs,
-	        viewTop = 0,
-	        viewHeight = 0,
+            viewTop = 0,
+            viewHeight = 0,
             done_scrolling = false,
             lastScrollTop = -1;
 
@@ -119,7 +120,7 @@
 
 	        	var elemWidth = elem.outerWidth();
 
-	        	var w = (elemWidth > 0 ? elemWidth : windowWidth);
+	        	var w = (elemWidth > 0 && settings.watch === 'tag' ? elemWidth : windowWidth);
 
 	        	var do_load = true;
 
