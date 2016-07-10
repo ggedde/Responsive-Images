@@ -1,6 +1,6 @@
 /**
  * Responsive Images
- * Version: 4.1.0
+ * Version: 4.2.0
  * Author: Geoff Gedde
  * License: http://www.opensource.org/licenses/mit-license.php
  * Requires: jQuery
