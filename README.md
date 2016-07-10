@@ -84,6 +84,16 @@ CSS Classes will be added to your elements
 * **rimg-lazy** - To all tags that are lazy loaded (below the fold) and when lazyload is enabled.
 * **rimg-loaded** - Added after the image src is fully loaded.
 
+
+No JS fallback  
+Just include a ```<noscript>``` tag with your element
+```
+<noscript>
+<img src="image.jpg" />
+</noscript>
+```
+
+
 ##Watch##
 What to watch when deciding to update.  
 * **tag** - (Default) This will watch the ```<img>``` or ```<div>``` tags width to determine what image should be shown. This is ideal when using grid layouts like having images in split columns, etc. It is best to set your ```<img>``` and other tags to width: 100%; for this to work properly.  Otherwise use 'window'.
