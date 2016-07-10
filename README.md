@@ -1,6 +1,7 @@
 # Responsive-Images  with LazyLoad Option
 Version 4.2.1  
-Resizes Images based on Image container width or Browswer width.
+Resizes Images based on Image container width or Browswer width.  
+Works on both ```<img>``` tags and background images.
 
 
 ##How to Use##
