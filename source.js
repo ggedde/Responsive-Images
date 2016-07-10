@@ -1,6 +1,6 @@
 /**
  * Responsive Images
- * Version: 4.0.0
+ * Version: 4.1.0
  * Author: Geoff Gedde
  * License: http://www.opensource.org/licenses/mit-license.php
  * Requires: jQuery
@@ -17,6 +17,7 @@
             downsize: false,
             onload: true,
             lazyload: true,
+            lazyload_threshold: 100,
             sizes: [
 	    		{
 	    			name: 'small',
@@ -64,7 +65,7 @@
         	var viewPos = viewTop + viewHeight;
 	        var elemPos = parseFloat(elem.offset().top);
 
-        	return (elemPos-100) <= viewPos;
+        	return (elemPos-settings.lazyload_threshold) <= viewPos;
         }
 
         function rImgInit()
@@ -122,8 +123,10 @@
 
 	        	var do_load = true;
 
+
 	        	var img_src = elem.attr('src');
 	        	var bg_src = elem.css('background-image').split('url("').join('').split('")').join('');
+	        	var new_src;
 
 	        	if(settings.lazyload && !done_scrolling)
 	        	{
@@ -140,23 +143,38 @@
 		        			/* Loop through Size and any smaller sizes in case the large size does not exist */
 		        			for (var n = (settings.downscale ? (i-1) : i); n >= 0; n--)
 		        			{
+		        				new_src = elem.attr('data-rimg-'+settings.sizes[n].name);
+
 		        				/* Check if Element has data setting for a given size */
-		        				if(elem.attr('data-rimg-'+settings.sizes[n].name))
+		        				if(new_src)
 			        			{
 			        				/* If IMG a tag */
 			        				if(elem.prop("tagName") === 'IMG')
 			        				{
-			        					if(img_src != elem.attr('data-rimg-'+settings.sizes[n].name) && (settings.downsize || (!settings.downsize && !rImgIsBigger(img_src, elem, n))))
+			        					if(img_src != new_src && (settings.downsize || (!settings.downsize && !rImgIsBigger(img_src, elem, n))))
 				        				{
-				        					elem.attr('src', elem.attr('data-rimg-'+settings.sizes[n].name)).addClass('rimg-loaded');
+				        					if(elem.hasClass('rimg-loaded'))
+					        				{
+					        					elem.attr('src', new_src);
+					        				}
+					        				else
+					        				{
+				        						elem.attr('src', new_src).one('load', function() {
+				        							$(this).addClass('rimg-loaded');
+				        						});
+				        					}
 				        				}
 			        				}
 			        				/* If NOT IMG Tag */
 			        				else
 			        				{
-				        				if(bg_src != elem.attr('data-rimg-'+settings.sizes[n].name) && (settings.downsize || (!settings.downsize && !rImgIsBigger(bg_src, elem, n))))
+				        				if(bg_src != new_src && (settings.downsize || (!settings.downsize && !rImgIsBigger(bg_src, elem, n))))
 					        			{
-					        				elem.css('background-image', "url('"+elem.attr('data-rimg-'+settings.sizes[n].name)+"')").addClass('rimg-loaded');
+					        				// Preload image then add src and class to reduce flicker
+					        				$('<img/>').attr('src', new_src).one('load', function() {
+											   $(this).remove(); // prevent memory leaks as @benweet suggested
+											   elem.css('background-image', "url('"+new_src+"')").addClass('rimg-loaded');
+											});
 					        			}
 				        			}
 			        				break;
