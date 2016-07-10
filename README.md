@@ -85,7 +85,7 @@ CSS Classes will be added to your elements
 
 ##Watch##
 What to watch when deciding to update.  
-* **tag** - (Default) This will watch the <img> or <div> tags width to determine what image should be shown. This is ideal when using grid layouts like having images in split columns, etc. It is best to set your <img> and other tags to width: 100%; for this to work properly.  Otherwise use 'window'.
+* **tag** - (Default) This will watch the ```<img>``` or ```<div>``` tags width to determine what image should be shown. This is ideal when using grid layouts like having images in split columns, etc. It is best to set your ```<img>``` and other tags to width: 100%; for this to work properly.  Otherwise use 'window'.
 * **window** - This will watch the window or device width.  While this is good for mobile, etc it may load larger image sizes when not needed if the image is made smaller by using columns.
 
 ##Throttling Browser Resize##
