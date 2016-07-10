@@ -1,4 +1,5 @@
-# Responsive-Images
+# Responsive-Images  
+Version 4.1.0  
 Resizes Images based on Browser width
 
 ##How to Use##
@@ -19,8 +20,10 @@ jQuery(document).ready(function($){
 	$(this).responsiveImages({
 		throttle: 100,
 		downscale: false,
+		downsize: false,
 		onload: true,
 		lazyload: true,
+		lazyload_threshold: 100,
 		sizes: [
 			{
 			    name: 'small',
@@ -51,15 +54,17 @@ jQuery(document).ready(function($){
 });
 ```
 
-On an Image (Recommended to declare the smallest as your src or no src at all to reduce network bandwidth)    
+On an Image  
+Recommended to declare the smallest size as your src or use a data-uri filler to make sure the image fills out correctly and works properly with Lazyload.  
 ```  
-<img 
+<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
 data-rimg-small="1-small.jpg"   
 data-rimg-medium="1-med.jpg"   
 data-rimg-large="1-lrg.jpg"   
 data-rimg-full="1-full.jpg"   
 alt="" />
 ```
+(data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== is an extremely small image)
 
 Background Image (If no full size is declared it will default to the closest size)    
 ```
@@ -74,8 +79,17 @@ data-rimg-large="1-lrg.jpg">
 By default the resize throttling is set to 100 milliseconds. This reduces the lag when resizing the browser.
 However, if you want the images to load much faster on resize then you can set this to 0 to turn off throttling or adjust it to a smaller number.  
 
+##Onload##
+You may want to set this to false.  When declaring your own srcs and don't want the script to run until the user resizes the browser or scrolls if Lazyload is enabled.
+
 ##Downscaling##
 This will use the lower resolution image size instead of the higher resolution image size. Similar to floor() instead of ceil()
 
+##Downsize##
+If set to true then when resizing the window to smaller it will load the smaller images.  This can increase bandwidth, but may help with images looking crammed in smaller windows.
+
 ##LazyLoad##
 This will prevent the images from loading unless they are close to the viewport.  Then they will be faded in.  This helps reduce network bandwidth when images are not needed to be displayed.
+
+##LazyLoad Threshold##
+This is the number of pixels from the viewport that images will start to load.  You can increase this to reduce flickering images when scrolling, but the higher the number the more images that will be loaded by default.
