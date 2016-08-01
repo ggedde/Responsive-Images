@@ -1,6 +1,6 @@
 /**
  * Responsive Images
- * Version: 4.2.1
+ * Version: 4.2.2
  * Author: Geoff Gedde
  * License: http://www.opensource.org/licenses/mit-license.php
  * Requires: jQuery
@@ -247,7 +247,9 @@
         if(settings.onload)
         {
 	        /* Initialize */
-	        rImgUpdate();
+	        setTimeout(function(){ /* Set Timeout needed for issues with Firefox dom readyness */
+		        rImgUpdate();
+		    }, 0);
 	    }
 
     };
