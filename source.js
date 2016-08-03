@@ -43,6 +43,16 @@
 	    			size: 1440
 	    		},
 	    		{
+	    			name: 'large_x2',
+	    			size: 2048,
+	    			retna: true
+	    		},
+	    		{
+	    			name: 'xlarge_x2',
+	    			size: 2880,
+	    			retna: true
+	    		},
+	    		{
 	    			name: 'full',
 	    			size: 99999
 	    		}
