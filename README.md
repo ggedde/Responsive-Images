@@ -25,6 +25,8 @@ jQuery(document).ready(function($){
 		downscale: false,
 		downsize: false,
 		onload: true,
+		forcetagwidth: true,
+		retna: false,
 		lazyload: true,
 		lazyload_threshold: 100,
 		sizes: [
@@ -111,6 +113,12 @@ This will use the lower resolution image size instead of the higher resolution i
 
 ##Downsize##
 If set to true then when resizing the window to smaller it will load the smaller images.  This can increase bandwidth, but may help with images looking crammed in smaller windows.
+
+##ForceTagWidth##
+In order for the images to properly be sized they should be set to width: 100%.  This setting inforces that, but can be deactivated if need be.
+
+##Retna##
+By Default this is false, but you can enable it to load images sizes based on the PixelRatio of the device.  In order for this to work properly you will need to make sure there are enough sizes to accommodate the larger images.  Example 2048, 2880,  4000, etc
 
 ##LazyLoad##
 This will prevent the images from loading unless they are close to the viewport.  This helps reduce network bandwidth when images are not needed to be displayed.  When using this option make sure to not include the ```<img>``` src or the ```<div>``` background image.  Otherwise the images will still get loaded on page load.  If the image is below the viewport it will be given the "rimg-lazy" class and on load it will be given the "rimg-loaded" class.
