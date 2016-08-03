@@ -19,7 +19,7 @@
             onload: true,
             lazyload: true,
             forcetagwidth: true,
-            retna: true,
+            retna: false,
             lazyload_threshold: 100,
             sizes: [
 	    		{
