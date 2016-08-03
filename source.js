@@ -1,6 +1,6 @@
 /**
  * Responsive Images
- * Version: 4.2.2
+ * Version: 4.3.0
  * Author: Geoff Gedde
  * License: http://www.opensource.org/licenses/mit-license.php
  * Requires: jQuery
@@ -18,6 +18,8 @@
             downsize: false,
             onload: true,
             lazyload: true,
+            forcetagwidth: true,
+            retna: true,
             lazyload_threshold: 100,
             sizes: [
 	    		{
@@ -81,6 +83,11 @@
         		{
         			var elem = $(this);
 
+        			if(settings.forcetagwidth && elem.prop("tagName") === 'IMG')
+        			{
+        				elem.css('width', '100%');
+        			}
+
 				    if(!rImgIsInView(elem))
 	        		{
 	        			var img_src = elem.attr('src');
@@ -124,6 +131,10 @@
 
 	        	var do_load = true;
 
+	        	if(settings.retna && typeof(window.devicePixelRatio) !== 'undefined' && $.isNumeric(window.devicePixelRatio) && window.devicePixelRatio > 1)
+	        	{
+	        		w = w * window.devicePixelRatio;
+	        	}
 
 	        	var img_src = elem.attr('src');
 	        	var bg_src = elem.css('background-image').split('url("').join('').split('")').join('');
