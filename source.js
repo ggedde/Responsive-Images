@@ -1,6 +1,6 @@
 /**
  * Responsive Images
- * Version: 4.3.0
+ * Version: 4.3.1
  * Author: Geoff Gedde
  * License: http://www.opensource.org/licenses/mit-license.php
  * Requires: jQuery
@@ -45,12 +45,12 @@
 	    		{
 	    			name: 'large_x2',
 	    			size: 2048,
-	    			retna: true
+	    			retnaonly: true
 	    		},
 	    		{
 	    			name: 'xlarge_x2',
 	    			size: 2880,
-	    			retna: true
+	    			retnaonly: true
 	    		},
 	    		{
 	    			name: 'full',
@@ -141,7 +141,9 @@
 
 	        	var do_load = true;
 
-	        	if(settings.retna && typeof(window.devicePixelRatio) !== 'undefined' && $.isNumeric(window.devicePixelRatio) && window.devicePixelRatio > 1)
+	        	var has_retna = (typeof(window.devicePixelRatio) !== 'undefined' && $.isNumeric(window.devicePixelRatio) && window.devicePixelRatio > 1);
+
+	        	if(settings.retna && has_retna)
 	        	{
 	        		w = w * window.devicePixelRatio;
 	        	}
@@ -168,7 +170,7 @@
 		        				new_src = elem.attr('data-rimg-'+settings.sizes[n].name);
 
 		        				/* Check if Element has data setting for a given size */
-		        				if(new_src)
+		        				if(new_src && (typeof(settings.sizes[n].retnaonly) === 'undefined' || !settings.sizes[n].retnaonly || (settings.retna && has_retna && settings.sizes[n].retnaonly)))
 			        			{
 			        				/* If IMG a tag */
 			        				if(elem.prop("tagName") === 'IMG')
