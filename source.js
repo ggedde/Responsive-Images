@@ -1,6 +1,6 @@
 /**
  * Responsive Images
- * Version: 4.3.1
+ * Version: 4.3.2
  * Author: Geoff Gedde
  * License: http://www.opensource.org/licenses/mit-license.php
  * Requires: jQuery
@@ -194,11 +194,18 @@
 			        				{
 				        				if(bg_src != new_src && (settings.downsize || (!settings.downsize && !rImgIsBigger(bg_src, elem, n))))
 					        			{
-					        				// Preload image then add src and class to reduce flicker
-					        				$('<img/>').attr('src', new_src).one('load', function() {
-											   $(this).remove(); // prevent memory leaks as @benweet suggested
-											   elem.css('background-image', "url('"+new_src+"')").addClass('rimg-loaded');
+					        				if(elem.hasClass('rimg-lazy'))
+					        				{
+						        				// Preload image then add src and class to reduce flicker
+						        				$('<img/>').attr('src', new_src).one('load', function() {
+												$(this).remove(); // prevent memory leaks as @benweet suggested
+												elem.css('background-image', "url('"+new_src+"')").addClass('rimg-loaded');
 											});
+										}
+										else
+										{
+											elem.css('background-image', "url('"+new_src+"')").addClass('rimg-loaded');
+										}
 					        			}
 				        			}
 			        				break;
