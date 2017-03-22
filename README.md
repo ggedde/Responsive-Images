@@ -1,5 +1,5 @@
 # Responsive-Images  with LazyLoad Option
-Version 4.2.1  
+Version 4.3.2  
 Resizes Images based on Image container width or Browswer width.  
 Works on both ```<img>``` tags and background images.
 
@@ -30,31 +30,41 @@ jQuery(document).ready(function($){
 		lazyload: true,
 		lazyload_threshold: 100,
 		sizes: [
-			{
-			    name: 'small',
-			    size: 320
-			},
-			{
-			    name: 'medium',
-			    size: 500
-			},
-			{
-			    name: 'medium_large',
-			    size: 768
-			},
-			{
-			    name: 'large',
-			    size: 1024
-			},
-			{
-			    name: 'xlarge',
-			    size: 1440
-			},
-			{
-			    name: 'full',
-			    size: 99999
-			}
-		]
+	    		{
+	    			name: 'small',
+	    			size: 320
+	    		},
+	    		{
+	    			name: 'medium',
+	    			size: 500
+	    		},
+	    		{
+	    			name: 'medium_large',
+	    			size: 768
+	    		},
+	    		{
+	    			name: 'large',
+	    			size: 1024
+	    		},
+	    		{
+	    			name: 'xlarge',
+	    			size: 1440
+	    		},
+	    		{
+	    			name: 'large_x2',
+	    			size: 2048,
+	    			retnaonly: true
+	    		},
+	    		{
+	    			name: 'xlarge_x2',
+	    			size: 2880,
+	    			retnaonly: true
+	    		},
+	    		{
+	    			name: 'full',
+	    			size: 99999
+	    		}
+	    	]
 	});
 });
 ```
@@ -118,7 +128,8 @@ If set to true then when resizing the window to smaller it will load the smaller
 In order for the images to properly be sized they should be set to width: 100%.  This setting inforces that, but can be deactivated if need be.
 
 ##Retna##
-By Default this is false, but you can enable it to load images sizes based on the PixelRatio of the device.  In order for this to work properly you will need to make sure there are enough sizes to accommodate the larger images.  Example 2048, 2880,  4000, etc
+By Default this is false, but you can enable it to load images sizes based on the PixelRatio of the device.  In order for this to work properly you will need to make sure there are enough sizes to accommodate the larger images.  Example 2048, 2880,  4000, etc.  
+You can specify certain sizes to only be used in Retna by adding the 'retnaonly: true' attribute to your size array as seen above in the default settings.
 
 ##LazyLoad##
 This will prevent the images from loading unless they are close to the viewport.  This helps reduce network bandwidth when images are not needed to be displayed.  When using this option make sure to not include the ```<img>``` src or the ```<div>``` background image.  Otherwise the images will still get loaded on page load.  If the image is below the viewport it will be given the "rimg-lazy" class and on load it will be given the "rimg-loaded" class.
