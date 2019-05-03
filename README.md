@@ -4,7 +4,7 @@ Resizes Images based on Image container width or Browswer width.
 Works on both ```<img>``` tags and background images.
 
 
-##How to Use##
+## How to Use
 Include the plugin from source.min.js into your project.  
 * Requires jQuery
 
@@ -106,39 +106,39 @@ Just include a ```<noscript>``` tag with your element
 ```
 
 
-##Watch##
+## Watch
 What to watch when deciding to update.  
 * **tag** - (Default) This will watch the ```<img>``` or ```<div>``` tags width to determine what image should be shown. This is ideal when using grid layouts like having images in split columns, etc. It is best to set your ```<img>``` and other tags to width: 100%; for this to work properly.  Otherwise use 'window'.
 * **window** - This will watch the window or device width.  While this is good for mobile, etc it may load larger image sizes when not needed if the image is made smaller by using columns.
 
-##Throttling Browser Resize##
+## Throttling Browser Resize
 By default the resize throttling is set to 100 milliseconds. This reduces the lag when resizing the browser.
 However, if you want the images to load much faster on resize then you can set this to 0 to turn off throttling or adjust it to a smaller number.  
 
-##Onload##
+## Onload
 You may want to set this to false.  When declaring your own srcs and don't want the script to run until the user resizes the browser or scrolls if Lazyload is enabled.
 
-##Downscaling##
+## Downscaling
 This will use the lower resolution image size instead of the higher resolution image size. Similar to floor() instead of ceil().  This may reduce bandwidth, but images may tend to be a bit more blury.
 
-##Downsize##
+## Downsize
 If set to true then when resizing the window to smaller it will load the smaller images.  This can increase bandwidth, but may help with images looking crammed in smaller windows.
 
-##ForceTagWidth##
+## ForceTagWidth
 In order for the images to properly be sized they should be set to width: 100%.  This setting inforces that, but can be deactivated if need be.
 
-##Retna##
+## Retna
 By Default this is false, but you can enable it to load images sizes based on the PixelRatio of the device.  In order for this to work properly you will need to make sure there are enough sizes to accommodate the larger images.  Example 2048, 2880,  4000, etc.  
 You can specify certain sizes to only be used in Retna by adding the 'retnaonly: true' attribute to your size array as seen above in the default settings.
 
-##LazyLoad##
+## LazyLoad
 This will prevent the images from loading unless they are close to the viewport.  This helps reduce network bandwidth when images are not needed to be displayed.  When using this option make sure to not include the ```<img>``` src or the ```<div>``` background image.  Otherwise the images will still get loaded on page load.  If the image is below the viewport it will be given the "rimg-lazy" class and on load it will be given the "rimg-loaded" class.
 
-##LazyLoad Threshold##
+## LazyLoad Threshold
 This is the number of pixels from the viewport that images will start to load.  You can increase this to reduce flickering images when scrolling, but the higher the number the more images that will be loaded by default.
 
 
-##Adding Effects on Lazyload##
+## Adding Effects on Lazyload
 CSS Fade Example:
 ```
 .rimg-lazy {
