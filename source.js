@@ -1,6 +1,6 @@
 /**
  * Responsive Images
- * Version: 4.3.2
+ * Version: 4.3.3
  * Author: Geoff Gedde
  * License: http://www.opensource.org/licenses/mit-license.php
  * Requires: jQuery
@@ -136,6 +136,11 @@
 	        	var elem = $(this);
 
 	        	var elemWidth = elem.outerWidth();
+			
+			if(elem.prop("tagName") === 'IMG' && settings.watch === 'tag' && elemWidth < 2 && elem.parent().outerWidth() > 0)
+			{
+				elemWidth = elem.parent().outerWidth();
+			}
 
 	        	var w = (elemWidth > 0 && settings.watch === 'tag' ? elemWidth : windowWidth);
 
